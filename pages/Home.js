@@ -49,7 +49,7 @@ const Home = () => {
                 </View>
 
                 <View>
-                    <Text style={styles.name}>Muhammad Dwi Saputra</Text>
+                    <Text style={styles.name}> Muhammad Dwi Saputra</Text>
                     <Text>NIM : 0320240089</Text>
                     <Text>Class : Informatika 2A</Text>
                 </View>
