@@ -49,7 +49,7 @@ const Home = () => {
                 </View>
 
                 <View>
-                    <Text style={styles.name}> Muhammad Dwi Saputra</Text>
+                    <Text style={styles.name}>Muhammad Dwi Saputra </Text>
                     <Text>NIM : 0320240089</Text>
                     <Text>Class : Informatika 2A</Text>
                 </View>
@@ -71,8 +71,8 @@ const Home = () => {
             <View style={styles.classcard}>
                 <Text style={styles.subtitle}>Upcoming Class</Text>
                 <Text>Database System</Text>
-                <Text>13:00 - 15:00</Text>
-                <Text>Room 204</Text>
+                <Text>08:00 - 10:00</Text>
+                <Text>Lab 3</Text>
             </View>
 
             {/* ATTENDANCE SUMMARY */}
