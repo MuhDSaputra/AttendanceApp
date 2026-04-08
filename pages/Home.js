@@ -1,5 +1,5 @@
-import React, { useState, useEffect }from "react";
-import { View,Text,SafeAreaView,StyleSheet,TouchableOpacity,ScrollView,FlatList, Alert } from "react-native";
+import React, { useState, useEffect, useMemo, useRef }from "react";
+import { View,Text,SafeAreaView,StyleSheet,TouchableOpacity,ScrollView,FlatList, Alert,TextInput } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons';
 
 const history = [
@@ -33,6 +33,18 @@ const Home = () => {
     const [isCheckedIn, setIsCheckIn] = useState(false);
     const [currentTime, setCurrentTime] = useState('Memuat Jam...');
 
+    const [note, setNote] = useState('');
+    const noteInputRef = useRef(null);
+
+    const attendanceStats = useMemo(() => {
+        console.log("Menghitung ulang statistik kehadiran...");
+
+        const presentCount = historyData.filter(item => item.status === "Present").length;
+        const absentCount = historyData.filter(item => item.status === "Absent").length;
+
+        return { totalPresent: presentCount, totalAbsent: absentCount };
+    }, [historyData]);
+
     useEffect(() => {
         const timer = setInterval(() => {
             const timeString = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
@@ -47,6 +59,12 @@ const Home = () => {
             return;
         }
 
+        if(note.trim() === '') {
+            Alert.alert("Perhatian", "Catatan kehadiran wajib diisi.");
+            noteInputRef.current.focus();
+            return;
+        }
+
         const newAttendance = {
             id:Date.now().toString(),
             course:"Mobile Programming",
@@ -55,13 +73,12 @@ const Home = () => {
         };
 
         setHistoryData([newAttendance, ...historyData]);
-        
         setIsCheckIn(true);
         Alert.alert("Sukses", `Anda berhasil check in pada pukul ${currentTime}`);
     };
 
     const renderItem = ({ item }) => (
-                <View style={styles.item}>
+            <View style={styles.item}>
 
             <View>
                 <Text style={styles.course}>{item.course}</Text>
@@ -100,46 +117,57 @@ const Home = () => {
             </View>
 
             {/* Student Card */}
-            <View style={styles.card}>
-                <View style={styles.icon}>
-                <MaterialIcons name="person" size={40} color="#555" />
-                </View>
-                <View>
-                <Text style={styles.name}>Budi Susanto</Text>
-                <Text>NIM : 0325260031</Text>
-                <Text>Class : Informatika-2B</Text>
-                </View>
-            </View>
-
-            {/* Today's Class */}
             <View style={styles.classCard}>
-                <Text style={styles.subtitle}>Today's Class</Text>
-                <Text>Mobile Programming</Text>
-                <Text>08:00 - 10:00</Text>
-                <Text>Lab 3</Text>
+            <Text style={styles.subtitle}>Today's Class</Text>
+            <Text>Mobile Programming</Text>
+            <Text>08:00 - 10:00</Text>
+            <Text>Lab 3</Text>
 
-                {/* Modifikasi Tombol Check In */}
-                <TouchableOpacity
+            {/* Fitur Baru: Kolom Input Catatan dengan useRef */}
+            {!isCheckedIn && (
+                <TextInput
+                ref={noteInputRef} // <-- Menempelkan referensi ke elemen ini
+                style={styles.inputCatatan}
+                placeholder="Tulis catatan (cth: Hadir lab)"
+                value={note}
+                onChangeText={setNote}
+                />
+            )}
+
+            <TouchableOpacity
                 style={[styles.button, isCheckedIn ? styles.buttonDisabled : styles.buttonActive]}
                 onPress={handleCheckIn}
-                disabled={isCheckedIn} // Matikan fungsi klik jika sudah absen
-                >
+                disabled={isCheckedIn}
+            >
                 <Text style={styles.buttonText}>
-                    {isCheckedIn ? "CHECKED IN" : "CHECK IN"}
+                {isCheckedIn ? "CHECKED IN" : "CHECK IN"}
                 </Text>
-                </TouchableOpacity>
+            </TouchableOpacity>
+            </View>
+
+            {/* Fitur Baru: Statistik Kehadiran (Hasil useMemo) */}
+            <View style={styles.statsCard}>
+            <View style={styles.statBox}>
+                <Text style={styles.statNumber}>{attendanceStats.totalPresent}</Text>
+                <Text style={styles.statLabel}>Total Present</Text>
+            </View>
+            
+            <View style={styles.statBox}>
+                <Text style={[styles.statNumber, { color: 'red' }]}>{attendanceStats.totalAbsent}</Text>
+                <Text style={styles.statLabel}>Total Absent</Text>
+            </View>
             </View>
 
             {/* Attendance History */}
             <View style={styles.classCard}>
-                <Text style={styles.subtitle}>Attendance History</Text>
+            <Text style={styles.subtitle}>Attendance History</Text>
 
-                <FlatList
-                data={historyData} // <-- Ubah 'history' menjadi 'historyData'
+            <FlatList
+                data={historyData} 
                 keyExtractor={(item) => item.id}
                 renderItem={renderItem}
                 scrollEnabled={false}
-                />
+            />
             </View>
             </ScrollView>
         </SafeAreaView>
@@ -274,5 +302,35 @@ buttonActive:{
 },
 buttonDisabled: {
     backgroundColor: '#A0C4FF',
+},
+
+inputCatatan: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 10,
+    marginTop: 15,
+    borderColor: '#fafafa',
+},
+
+statsCard: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 20,
+},
+statBox: {
+    alignItems: 'center',
+},
+statNumber: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'green',
+},
+statLabel: {
+    fontSize: 14,
+    color:'grey',
 },
 });
