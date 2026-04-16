@@ -306,9 +306,7 @@ function HistoryStack() {
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{ tabBarActiveTintColor: "#0056A0", headerShown: false }}
-      >
+      <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen
           name="HomeTab"
           component={HomeScreen}
@@ -319,6 +317,7 @@ export default function App() {
             ),
           }}
         />
+
         <Tab.Screen
           name="HistoryTab"
           component={HistoryStack}
