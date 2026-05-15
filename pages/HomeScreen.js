@@ -104,7 +104,7 @@ export default function HomeScreen() {
       kodeMk: qrData.kodeMk,
       course: "Pemrograman Mobile",
       dosenPengampu: "Pak Budi",
-      nimMhs: "0320240078",
+      nimMhs: "0320240089",
       pertemuanKe: qrData.pertemuanKe,
       date: new Date().toISOString().split("T")[0],
       jamPresensi: new Date().toLocaleTimeString("en-GB"),

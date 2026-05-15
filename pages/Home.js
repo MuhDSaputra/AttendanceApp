@@ -99,8 +99,8 @@ const Home = () => {
                     </View>
                     
                     <View>
-                        <Text style={styles.name}>Sheva Yudha Yunior</Text>
-                        <Text>NIM : 0320240078</Text>
+                        <Text style={styles.name}>Muhammad Dwi Saputra</Text>
+                        <Text>NIM : 0320240089</Text>
                         <Text>Class : Informatika 2-A</Text>
                     </View>
                 </View>
