@@ -1,42 +1,49 @@
-import { Component } from "react";
-import { View, Button, StyleSheet, SafeAreaView, Text } from "react-native";
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, Button, SafeAreaView } from 'react-native';
 
+// KOMPONEN ANAK: TIMER DENGAN LIFE CYCLE
 class TimerLifeCycle extends Component {
+    // FASE 0: CONSTRUCTOR
     constructor(props) {
         super(props);
-        this.state = {
-            detik: 0
-        };
-        console.log("[CONSTRUCTOR] Memori disiapkan untuk anak");
+        this.state = { detik: 0 };
+        console.log("0. [CONSTRUCTOR] Memori disiapkan untuk anak.");
     }
 
+    // FASE 1: MOUNTING ( LAHIR )
     componentDidMount() {
-        console.log("1. [MOUNT] Anak lahir! Timer mulai berjalan");
-
+        console.log("1. [MOUNTING] Anak Lahir! Timer mulai berjalan.");
+        
         this.interval = setInterval(() => {
             this.setState({ detik: this.state.detik + 1 });
-        }, 1000);
-    }
 
+            console.log(` [BACKGROUND TIMER] Berjalan: ${this.state.detik} detik`);
+            
+        },1000);
+    }
+    
+    // FASE 2: UPDATING ( HIDUP )
     componentDidUpdate(prevProps, prevState) {
-        console.log(`2. [UPDATING] waktu bertambah ${prevState.detik} -> ${this.state.detik} detik`);
+        console.log(`2. [UPDATING] Waktu bertambah: ${this.state.detik} detik`);
     }
 
+    // FASE 3: UNMOUNTING ( MATI )
     componentWillUnmount() {
-        console.log("3. [UNMOUNT] Anak meninggal! Timer dimatikan (Cleanup).");
+        console.log("3. [UNMOUNTING] Anak Mati! Timer dihentikan.");
         clearInterval(this.interval);
     }
 
     render() {
         return (
             <View style={styles.timerBox}>
-                <Text style={styles.timerText}>{this.state.detik} detik</Text>
+                <Text style={styles.timerText}>Timer: {this.state.detik} detik:</Text>
                 <Text>Detik Berjalan</Text>
             </View>
         );
     }
 }
 
+// KOMPONEN UTAMA : INDUK PENGEDALI
 export default class ClassLifeCycle extends Component {
     state = { tampilkanTimer: false };
 
@@ -46,24 +53,29 @@ export default class ClassLifeCycle extends Component {
 
     render() {
         return (
-            <SafeAreaView>
-                <Text>Demo LifeCycle Komponen</Text>
-                
-                <View>
-                    {this.state.tampilkanTimer ? (
-                        <TimerLifeCycle />
-                    ) : (
-                        <Text>Komponen Anak Belum Lahir</Text>
-                    )}
-                </View>
+            <SafeAreaView style={styles.container}>
+            <Text style={styles.title}>Demo Lifecycle Komponen</Text>
 
-                <View>
-                    <Button 
-                        title={this.state.tampilkanTimer ? "Hancurkan Komponen (Unmount)" : "Lahirkan Komponen (Mount)"}
-                        color={this.state.tampilkanTimer ? "#D32F2f" : "#0056A0"}
-                        onPress={this.toggleTimer}
-                    />
-                </View>
+            <View style={styles.content}>
+                {/* CONDITIONAL RENDERING: Menentukan anak lahir atau mati */}
+                {this.state.tampilkanTimer ? (
+                <TimerLifeCycle />
+                ) : (
+                <Text style={styles.infoText}>Komponen Anak Belum Lahir</Text>
+                )}
+            </View>
+
+            <View style={styles.buttonContainer}>
+                <Button
+                title={
+                    this.state.tampilkanTimer
+                    ? "Hancurkan Komponen (Unmount)"
+                    : "Lahirkan Komponen (Mount)"
+                }
+                color={this.state.tampilkanTimer ? "#D32F2F" : "#0056A0"}
+                onPress={this.toggleTimer}
+                />
+            </View>
             </SafeAreaView>
         );
     }
@@ -72,18 +84,18 @@ export default class ClassLifeCycle extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F5F7FA',
-        alignItems: 'center',
+        backgroundColor: "#F5F7FA",
+        alignItems: "center",
         paddingTop: 50,
     },
     title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 30,
+        fontSize: 22,
+        fontWeight: "bold",
+        marginBottom: 20,
     },
     content: {
         height: 150,
-        justifyContent: 'center',
+        justifyContent: "center",
     },
     timerBox: {
         backgroundColor: '#FFF',
@@ -95,18 +107,21 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 5,
     },
+
     timerText: {
         fontSize: 48,
         fontWeight: 'bold',
         color: '#2E7D32',
     },
+
     infoText: {
         fontSize: 16,
         color: '#888',
         fontStyle: 'italic',
     },
+
     buttonContainer: {
         marginTop: 40,
         width: '80%',
-    },
+    }
 });

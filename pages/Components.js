@@ -1,28 +1,22 @@
-import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { Component } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
-// 1. Class Component
+// Functional Component
 
 export class KartuClass extends Component {
-    render () {
-        return (
-            <View style={styles.cardClass}>
-                <Text style={styles.textWhite}>Hallo, saya dari Class Component!</Text>
-                <Text style={styles.textSub}>Sintaks saya lebih panjang dan butuh render ()</Text>
-            </View>
-        );
+    render() {
+        return <View style={styles.cardClass}>
+            <Text style={styles.textWhite}>Halo, saya dari Class Component!</Text>
+            <Text style={styles.textSub}>Sintaks saya lebih panjang dan memerlukan render</Text>
+        </View>;    
     }
 }
-
-// 2. Functional Component
-
-export const KartuFunctional = () => {
-    return (
-        <View style={styles.cardFunc}>
-            <Text style={styles.textWhite}>Hallo, saya dari Functional Component!</Text>
-            <Text style={styles.textSub}>Sintaks saya lebih singkat dan tidak butuh render ()</Text>
-        </View>
-    );
+// Functional Component
+export const KartuFunction = () => {
+    return <View style={styles.cardFunc}>
+        <Text style={styles.textWhite}>Halo, saya dari Function Component!</Text>
+        <Text style={styles.textSub}>Sintaks saya lebih singkat dan tidak memerlukan render</Text>
+    </View>;
 };
 
 const styles = StyleSheet.create({
@@ -30,40 +24,39 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#f0f0f0',
+        backgroundColor: "F5F7Fa",
         padding: 20,
     },
-    title:{
+    tittle:{
         fontSize: 22,
         fontWeight: 'bold',
-        borderRadius: 10,
-        marginBottom: 20,
+        marginBottom: 30,
         color: '#333',
     },
-    cardClass: {
-        backgroundColor: '#0056A0',
-        padding: 20,
+    cardClass:{
+        backgroundColor: "#1976D2",
+        padding: 15,
         borderRadius: 10,
         marginBottom: 20,
-        width: "100%",
-        alignItems: "center",
+        width: '100%',
+        alignItems: 'center',
     },
     cardFunc: {
-        backgroundColor: '#2E7D32',
-        padding: 20,
+        backgroundColor: "#2E7D32",
+        padding: 15,
         borderRadius: 10,
-        width: "100%",
-        alignItems: "center",
+        marginBottom: 20,
+        width: '100%',
+        alignItems: 'center',
     },
     textWhite: {
-        color: '#fff',
+        color: 'white',
         fontSize: 16,
         fontWeight: 'bold',
     },
-    textSub:{
-        color: '#D1E8FF',
-        fontSize: 12,
+    textSub: {
+        color: 'white',
+        fontSize: 15,
         marginTop: 5,
-        textAlign: 'center',
-    },
+    }
 });

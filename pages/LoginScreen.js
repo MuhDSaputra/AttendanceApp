@@ -3,7 +3,7 @@ import { View, TextInput, Button, Alert } from "react-native";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 
-const BASE_URL = "http://10.1.13.40:8080/api/user";
+const BASE_URL = "http://10.1.13.46:8080/api/user";
 
 export default function LoginScreen() {
   const { login } = useContext(AuthContext);

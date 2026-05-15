@@ -13,7 +13,6 @@ export default function FlatListScreen() {
     const end = Date.now();
     console.log("Waktu render (FlatList):", end - start, "ms");
   }, []);
-
   const renderItem = ({ item }) => (
     <View style={styles.card}>
       <Text style={styles.id}>{item.id}</Text>
