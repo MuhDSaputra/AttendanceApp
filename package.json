@@ -22,7 +22,11 @@
     "expo-camera": "~17.0.10",
     "expo-status-bar": "~55.0.4",
     "react": "19.2.0",
+<<<<<<< HEAD
     "react-dom": "19.2.0",
+=======
+    "react-dom": "^19.2.0",
+>>>>>>> 8053d70ca478b652d540e46e1b14af6cbe66ce3b
     "react-native": "0.83.2",
     "react-native-gesture-handler": "^2.31.1",
     "react-native-reanimated": "^4.3.0",
