@@ -24,13 +24,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-<<<<<<< HEAD
     },
     "plugins": [
       "expo-asset"
     ]
-=======
-    }
->>>>>>> 8053d70ca478b652d540e46e1b14af6cbe66ce3b
   }
 }
